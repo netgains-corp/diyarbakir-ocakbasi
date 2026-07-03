@@ -288,6 +288,20 @@ body.ready .wrap{ opacity:1; transform:none; }
 @media (min-width:560px){ .cta-row{ flex-direction:row; } }
 
 /* =========================================================================
+   MOBILE-ONLY FIXES (Smartphones < 560px) – Tablet & Desktop unverändert
+   ========================================================================= */
+@media (max-width:559.98px){
+  /* 1) Gericht-Kacheln: lange Namen sauber umbrechen statt Zeile zu sprengen */
+  .m-row{ flex-wrap:wrap; row-gap:2px; }
+  .m-name{ white-space:normal; min-width:0; overflow-wrap:break-word; word-break:break-word; hyphens:auto; }
+  /* 2) Zusatzstoff-Zahlen: bleiben eine Zeile bzw. brechen als ganzer Block um,
+        werden nie mehr vertikal gestaucht */
+  .m-note{ flex:0 0 auto; white-space:nowrap; }
+  .m-price{ margin-left:auto; }
+  .m-desc{ max-width:100%; overflow-wrap:break-word; }
+}
+
+/* =========================================================================
    SCROLL-EINFLUG
    ========================================================================= */
 .reveal{ opacity:0; transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); will-change:opacity,transform; }
@@ -398,11 +412,11 @@ body.ready .wrap{ opacity:1; transform:none; }
       <svg class="flourish" viewBox="0 0 220 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><line x1="6" y1="9" x2="84" y2="9"/><line x1="136" y1="9" x2="214" y2="9"/><path d="M84 9q9 0 12-5 M84 9q9 0 12 5"/><path d="M136 9q-9 0 -12-5 M136 9q-9 0 -12 5"/><circle cx="98" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="122" cy="9" r="1.5" fill="currentColor" stroke="none"/><path d="M110 2.5l6 6.5-6 6.5-6-6.5z" fill="currentColor" stroke="none"/></svg>
     </div>
     <div class="m-list">
-      <div class="m-item"><div class="m-row"><span class="m-name">Haydari</span><span class="m-note">1 4 6 8 🍃</span><span class="m-leader"></span><span class="m-price">8,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Yoğurtlu Patlıcan Ezme</span><span class="m-note">1 4 6 8 🍃</span><span class="m-leader"></span><span class="m-price">8,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Acılı Ezme</span><span class="m-note">1 6 8 🌶️ 🍃</span><span class="m-leader"></span><span class="m-price">8,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Karışık Meze</span><span class="m-note">1 4 6 8</span><span class="m-leader"></span><span class="m-price">9,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Çiğ Köfte</span><span class="m-note">1 4 6 8 🍃</span><span class="m-leader"></span><span class="m-price">10,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Haydari</span><span class="m-note">1, 4, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">8,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Yoğurtlu Patlıcan Ezme</span><span class="m-note">1, 4, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">8,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Acılı Ezme</span><span class="m-note">1, 6, 8 🌶️ 🍃</span><span class="m-leader"></span><span class="m-price">8,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Karışık Meze</span><span class="m-note">1, 4, 6, 8</span><span class="m-leader"></span><span class="m-price">9,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Çiğ Köfte</span><span class="m-note">1, 4, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">10,00 €</span></div></div>
     </div>
   </section>
 
@@ -412,12 +426,12 @@ body.ready .wrap{ opacity:1; transform:none; }
       <svg class="flourish" viewBox="0 0 220 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><line x1="6" y1="9" x2="84" y2="9"/><line x1="136" y1="9" x2="214" y2="9"/><path d="M84 9q9 0 12-5 M84 9q9 0 12 5"/><path d="M136 9q-9 0 -12-5 M136 9q-9 0 -12 5"/><circle cx="98" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="122" cy="9" r="1.5" fill="currentColor" stroke="none"/><path d="M110 2.5l6 6.5-6 6.5-6-6.5z" fill="currentColor" stroke="none"/></svg>
     </div>
     <div class="m-list">
-      <div class="m-item"><div class="m-row"><span class="m-name">Vegetarischer Dürüm</span><span class="m-note">2 3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">6,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Beilagen Salat</span><span class="m-note">1 6 8 🍃</span><span class="m-leader"></span><span class="m-price">5,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Gemischter Salat</span><span class="m-note">1 6 8</span><span class="m-leader"></span><span class="m-price">7,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Bauernsalat</span><span class="m-note">1 6 8 🍃</span><span class="m-leader"></span><span class="m-price">8,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Dönersalat</span><span class="m-note">1 6 8</span><span class="m-leader"></span><span class="m-price">10,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Thunfischsalat</span><span class="m-note">1 6 8</span><span class="m-leader"></span><span class="m-price">10,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Vegetarischer Dürüm</span><span class="m-note">2, 3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">6,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Beilagen Salat</span><span class="m-note">1, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">5,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Gemischter Salat</span><span class="m-note">1, 6, 8</span><span class="m-leader"></span><span class="m-price">7,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Bauernsalat</span><span class="m-note">1, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">8,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Dönersalat</span><span class="m-note">1, 6, 8</span><span class="m-leader"></span><span class="m-price">10,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Thunfischsalat</span><span class="m-note">1, 6, 8</span><span class="m-leader"></span><span class="m-price">10,00 €</span></div></div>
     </div>
   </section>
 
@@ -428,17 +442,17 @@ body.ready .wrap{ opacity:1; transform:none; }
       <p class="kicker">Inkl. Beilagen Salat, Brot und wahlweise Bulgur, Pommes oder Reis</p>
     </div>
     <div class="m-list">
-      <div class="m-item"><div class="m-row"><span class="m-name">Adana Kebab</span><span class="m-note">1 8 🌶️</span><span class="m-leader"></span><span class="m-price">14,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Urfa Kebab</span><span class="m-note">1 8</span><span class="m-leader"></span><span class="m-price">14,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Tavuk Şiş</span><span class="m-note">1 8</span><span class="m-leader"></span><span class="m-price">14,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Tavuk Kanat</span><span class="m-note">1 8</span><span class="m-leader"></span><span class="m-price">14,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Adana mit Joghurtsoße</span><span class="m-note">1 2 4 6 8 🌶️</span><span class="m-leader"></span><span class="m-price">15,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Kuzu Şiş</span><span class="m-note">1 8</span><span class="m-leader"></span><span class="m-price">20,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Beyti Kebab</span><span class="m-note">1 2 4 6 8</span><span class="m-leader"></span><span class="m-price">17,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Döner Beyti Kebab</span><span class="m-note">1 2 4 8</span><span class="m-leader"></span><span class="m-price">15,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Ali Nazik</span><span class="m-note">1 2 4 6 8</span><span class="m-leader"></span><span class="m-price">18,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Kuzu Pirzola</span><span class="m-note">1 8</span><span class="m-leader"></span><span class="m-price">21,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Karışık Izgara</span><span class="m-note">1 8</span><span class="m-leader"></span><span class="m-price">1P 20,00 €  ·  2P 38,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Adana Kebab</span><span class="m-note">1, 8 🌶️</span><span class="m-leader"></span><span class="m-price">14,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Urfa Kebab</span><span class="m-note">1, 8</span><span class="m-leader"></span><span class="m-price">14,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Tavuk Şiş</span><span class="m-note">1, 8</span><span class="m-leader"></span><span class="m-price">14,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Tavuk Kanat</span><span class="m-note">1, 8</span><span class="m-leader"></span><span class="m-price">14,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Adana mit Joghurtsoße</span><span class="m-note">1, 2, 4, 6, 8 🌶️</span><span class="m-leader"></span><span class="m-price">15,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Kuzu Şiş</span><span class="m-note">1, 8</span><span class="m-leader"></span><span class="m-price">20,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Beyti Kebab</span><span class="m-note">1, 2, 4, 6, 8</span><span class="m-leader"></span><span class="m-price">17,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Döner Beyti Kebab</span><span class="m-note">1, 2, 4, 8</span><span class="m-leader"></span><span class="m-price">15,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Ali Nazik</span><span class="m-note">1, 2, 4, 6, 8</span><span class="m-leader"></span><span class="m-price">18,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Kuzu Pirzola</span><span class="m-note">1, 8</span><span class="m-leader"></span><span class="m-price">21,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Karışık Izgara</span><span class="m-note">1, 8</span><span class="m-leader"></span><span class="m-price">1P 20,00 €  ·  2P 38,50 €</span></div></div>
     </div>
   </section>
 
@@ -449,23 +463,23 @@ body.ready .wrap{ opacity:1; transform:none; }
       <p class="kicker">ca. 30 cm · Grundbelag: Tomatensoße &amp; Käse</p>
     </div>
     <div class="m-list">
-      <div class="m-item"><div class="m-row"><span class="m-name">Margherita</span><span class="m-note">3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">7,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Putensalami</span><span class="m-note">3 6 8</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Pepperoniwurst</span><span class="m-note">3 6 8 🌶️</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Putenschinken</span><span class="m-note">3 6 8</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Champignons</span><span class="m-note">3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Vegetarisch</span><span class="m-note">3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Hawaii</span><span class="m-note">3 6 8</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Mafia</span><span class="m-note">3 6 8 🌶️</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Calzone</span><span class="m-note">3 6 8</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Thunfisch</span><span class="m-note">3 6 8</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Sucuk m. Champignons</span><span class="m-note">3 6 8 🌶️</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Mozzarella</span><span class="m-note">3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Diyarbakır</span><span class="m-note">3 6 8</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Gorgonzola</span><span class="m-note">3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">4 Käse</span><span class="m-note">3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Wiesbaden</span><span class="m-note">3 6 8 🌶️</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Familien Pizza</span><span class="m-note">50×50 cm, 3 6 8</span><span class="m-leader"></span><span class="m-price">25,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Margherita</span><span class="m-note">3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">7,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Putensalami</span><span class="m-note">3, 6, 8</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Pepperoniwurst</span><span class="m-note">3, 6, 8 🌶️</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Putenschinken</span><span class="m-note">3, 6, 8</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Champignons</span><span class="m-note">3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Vegetarisch</span><span class="m-note">3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Hawaii</span><span class="m-note">3, 6, 8</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Mafia</span><span class="m-note">3, 6, 8 🌶️</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Calzone</span><span class="m-note">3, 6, 8</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Thunfisch</span><span class="m-note">3, 6, 8</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Sucuk m. Champignons</span><span class="m-note">3, 6, 8 🌶️</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Mozzarella</span><span class="m-note">3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Diyarbakır</span><span class="m-note">3, 6, 8</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Gorgonzola</span><span class="m-note">3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">4 Käse</span><span class="m-note">3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Wiesbaden</span><span class="m-note">3, 6, 8 🌶️</span><span class="m-leader"></span><span class="m-price">9,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Familien Pizza</span><span class="m-note">50×50 cm, 3, 6, 8</span><span class="m-leader"></span><span class="m-price">25,00 €</span></div></div>
       <div class="m-desc">Extras: Fleischbelag +1,00 € · Gemüse oder Käse +1,00 €</div>
     </div>
   </section>
@@ -476,12 +490,12 @@ body.ready .wrap{ opacity:1; transform:none; }
       <svg class="flourish" viewBox="0 0 220 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><line x1="6" y1="9" x2="84" y2="9"/><line x1="136" y1="9" x2="214" y2="9"/><path d="M84 9q9 0 12-5 M84 9q9 0 12 5"/><path d="M136 9q-9 0 -12-5 M136 9q-9 0 -12 5"/><circle cx="98" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="122" cy="9" r="1.5" fill="currentColor" stroke="none"/><path d="M110 2.5l6 6.5-6 6.5-6-6.5z" fill="currentColor" stroke="none"/></svg>
     </div>
     <div class="m-list">
-      <div class="m-item"><div class="m-row"><span class="m-name">Kinder-mini Döner</span><span class="m-note">2 3 6 8</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Döner Kebab</span><span class="m-note">2 3 6 8</span><span class="m-leader"></span><span class="m-price">7,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Döner m. Extra Fleisch</span><span class="m-note">2 3 6 8</span><span class="m-leader"></span><span class="m-price">8,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Döner Teller</span><span class="m-note">2 6 8</span><span class="m-leader"></span><span class="m-price">13,00 €</span></div><div class="m-desc">Bulgur / Pommes / Reis</div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">İskender Kebab</span><span class="m-note">1 2 4 6 8</span><span class="m-leader"></span><span class="m-price">15,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Döner Box</span><span class="m-note">2 6 8</span><span class="m-leader"></span><span class="m-price">7,00 €</span></div><div class="m-desc">Bulgur / Pommes / Reis / Salat</div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Kinder-mini Döner</span><span class="m-note">2, 3, 6, 8</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Döner Kebab</span><span class="m-note">2, 3, 6, 8</span><span class="m-leader"></span><span class="m-price">7,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Döner m. Extra Fleisch</span><span class="m-note">2, 3, 6, 8</span><span class="m-leader"></span><span class="m-price">8,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Döner Teller</span><span class="m-note">2, 6, 8</span><span class="m-leader"></span><span class="m-price">13,00 €</span></div><div class="m-desc">Bulgur / Pommes / Reis</div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">İskender Kebab</span><span class="m-note">1, 2, 4, 6, 8</span><span class="m-leader"></span><span class="m-price">15,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Döner Box</span><span class="m-note">2, 6, 8</span><span class="m-leader"></span><span class="m-price">7,00 €</span></div><div class="m-desc">Bulgur / Pommes / Reis / Salat</div></div>
     </div>
   </section>
 
@@ -491,13 +505,13 @@ body.ready .wrap{ opacity:1; transform:none; }
       <svg class="flourish" viewBox="0 0 220 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><line x1="6" y1="9" x2="84" y2="9"/><line x1="136" y1="9" x2="214" y2="9"/><path d="M84 9q9 0 12-5 M84 9q9 0 12 5"/><path d="M136 9q-9 0 -12-5 M136 9q-9 0 -12 5"/><circle cx="98" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="122" cy="9" r="1.5" fill="currentColor" stroke="none"/><path d="M110 2.5l6 6.5-6 6.5-6-6.5z" fill="currentColor" stroke="none"/></svg>
     </div>
     <div class="m-list">
-      <div class="m-item"><div class="m-row"><span class="m-name">Döner Dürüm</span><span class="m-note">2 3 6 8</span><span class="m-leader"></span><span class="m-price">7,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Adana Dürüm</span><span class="m-note">2 3 6 8</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Tavuk Şiş Dürüm</span><span class="m-note">2 3 6 8</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Kuzu Şiş Dürüm</span><span class="m-note">2 3 6 8</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Lahmacun</span><span class="m-note">2 3 6 8</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Döner Lahmacun</span><span class="m-note">2 3 6 8</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Diyarbakır Lahmacun Teller</span><span class="m-note">2 3 6 8</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Döner Dürüm</span><span class="m-note">2, 3, 6, 8</span><span class="m-leader"></span><span class="m-price">7,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Adana Dürüm</span><span class="m-note">2, 3, 6, 8</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Tavuk Şiş Dürüm</span><span class="m-note">2, 3, 6, 8</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Kuzu Şiş Dürüm</span><span class="m-note">2, 3, 6, 8</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Lahmacun</span><span class="m-note">2, 3, 6, 8</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Döner Lahmacun</span><span class="m-note">2, 3, 6, 8</span><span class="m-leader"></span><span class="m-price">8,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Diyarbakır Lahmacun Teller</span><span class="m-note">2, 3, 6, 8</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div></div>
     </div>
   </section>
 
@@ -507,11 +521,11 @@ body.ready .wrap{ opacity:1; transform:none; }
       <svg class="flourish" viewBox="0 0 220 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><line x1="6" y1="9" x2="84" y2="9"/><line x1="136" y1="9" x2="214" y2="9"/><path d="M84 9q9 0 12-5 M84 9q9 0 12 5"/><path d="M136 9q-9 0 -12-5 M136 9q-9 0 -12 5"/><circle cx="98" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="122" cy="9" r="1.5" fill="currentColor" stroke="none"/><path d="M110 2.5l6 6.5-6 6.5-6-6.5z" fill="currentColor" stroke="none"/></svg>
     </div>
     <div class="m-list">
-      <div class="m-item"><div class="m-row"><span class="m-name">Pide (Käse / Weichkäse)</span><span class="m-note">3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">10,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Ispanaklı</span><span class="m-note">3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div><div class="m-desc">Spinat / Käse</div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Kıymalı</span><span class="m-note">3 6 8</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div><div class="m-desc">Lammhack / Käse</div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Sucuk</span><span class="m-note">3 6 8 🌶️</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Döner Pide</span><span class="m-note">3 6 8</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Pide (Käse / Weichkäse)</span><span class="m-note">3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">10,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Ispanaklı</span><span class="m-note">3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div><div class="m-desc">Spinat / Käse</div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Kıymalı</span><span class="m-note">3, 6, 8</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div><div class="m-desc">Lammhack / Käse</div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Sucuk</span><span class="m-note">3, 6, 8 🌶️</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Döner Pide</span><span class="m-note">3, 6, 8</span><span class="m-leader"></span><span class="m-price">11,00 €</span></div></div>
     </div>
   </section>
 
@@ -521,10 +535,10 @@ body.ready .wrap{ opacity:1; transform:none; }
       <svg class="flourish" viewBox="0 0 220 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><line x1="6" y1="9" x2="84" y2="9"/><line x1="136" y1="9" x2="214" y2="9"/><path d="M84 9q9 0 12-5 M84 9q9 0 12 5"/><path d="M136 9q-9 0 -12-5 M136 9q-9 0 -12 5"/><circle cx="98" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="122" cy="9" r="1.5" fill="currentColor" stroke="none"/><path d="M110 2.5l6 6.5-6 6.5-6-6.5z" fill="currentColor" stroke="none"/></svg>
     </div>
     <div class="m-list">
-      <div class="m-item"><div class="m-row"><span class="m-name">Vegetarisches Sandwich</span><span class="m-note">2 3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Çiğ Köfte Dürüm</span><span class="m-note">2 3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Falafel Sandwich</span><span class="m-note">2 3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Falafel Teller</span><span class="m-note">2 3 6 8 🍃</span><span class="m-leader"></span><span class="m-price">10,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Vegetarisches Sandwich</span><span class="m-note">2, 3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Çiğ Köfte Dürüm</span><span class="m-note">2, 3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Falafel Sandwich</span><span class="m-note">2, 3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Falafel Teller</span><span class="m-note">2, 3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">10,00 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Beilagen</span><span class="m-note">ab 5,00 €</span><span class="m-leader"></span><span class="m-price">🍃</span></div><div class="m-desc">Bulgur / Pommes / Reis</div></div>
     </div>
   </section>
@@ -628,7 +642,7 @@ body.ready .wrap{ opacity:1; transform:none; }
 
 <!-- Sticky Halal-Siegel unten links -->
 <a class="halal-badge" href="#" aria-label="100 % Halal zertifiziert" title="100 % Halal">
-  <img src="icon_halal_webp.webp" alt="100 % Halal" />
+  <img src="assets_diyarbakir/zertifikat-halal.webp" alt="100 % Halal" />
 </a>
 
 <script>
