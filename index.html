@@ -297,8 +297,14 @@ body.ready .wrap{ opacity:1; transform:none; }
   /* 2) Zusatzstoff-Zahlen: bleiben eine Zeile bzw. brechen als ganzer Block um,
         werden nie mehr vertikal gestaucht */
   .m-note{ flex:0 0 auto; white-space:nowrap; }
-  .m-price{ margin-left:auto; }
+  .m-price{ margin-left:auto; white-space:nowrap; }
   .m-desc{ max-width:100%; overflow-wrap:break-word; }
+
+  /* 3) Lange Namen: reicht der Platz nicht, rutschen die Zusatzstoff-Zahlen
+        unter den Gerichtnamen; Name und Preis bleiben zusammen in der ersten
+        Zeile – kein einzeln umbrechender Preis mehr. Die Klasse setzt das
+        Skript nur bei tatsächlichem Platzmangel (kurze Gerichte bleiben einzeilig). */
+  .m-row--stack .m-note{ order:3; flex-basis:100%; margin-left:0; }
 }
 
 /* =========================================================================
@@ -642,7 +648,7 @@ body.ready .wrap{ opacity:1; transform:none; }
 
 <!-- Sticky Halal-Siegel unten links -->
 <a class="halal-badge" href="#" aria-label="100 % Halal zertifiziert" title="100 % Halal">
-  <img src="assets_diyarbakir/zertifikat-halal.webp" alt="100 % Halal" />
+  <img src="assets_diyarbakir/halal-zertifikat.webp" alt="100 % Halal" />
 </a>
 
 <script>
@@ -716,6 +722,35 @@ body.ready .wrap{ opacity:1; transform:none; }
       ents.forEach(e => { if (e.isIntersecting){ countUp(e.target); ob.unobserve(e.target); } });
     }, { threshold:.6 });
     nums.forEach(n => io2.observe(n));
+  })();
+
+  /* Lange Gericht-Namen (nur Smartphone < 560px): Zusatzstoff-Zahlen unter den
+     Namen legen, sobald Name + Zahlen + Preis nicht mehr in eine Zeile passen.
+     Kurze Gerichte bleiben unverändert einzeilig; Tablet/Desktop nie betroffen. */
+  (function(){
+    const rows = document.querySelectorAll('.m-row');
+    if (!rows.length) return;
+    const mq = window.matchMedia('(max-width:559.98px)');
+    function apply(){
+      const mobile = mq.matches;
+      rows.forEach(function(row){
+        row.classList.remove('m-row--stack');
+        if (!mobile) return;
+        const name  = row.querySelector('.m-name');
+        const note  = row.querySelector('.m-note');
+        const price = row.querySelector('.m-price');
+        if (!name || !note || !price) return;
+        /* Preis sitzt tiefer als der Name => er ist bereits umgebrochen => stapeln */
+        if (price.offsetTop - name.offsetTop > price.offsetHeight * 0.5){
+          row.classList.add('m-row--stack');
+        }
+      });
+    }
+    apply();
+    document.addEventListener('DOMContentLoaded', apply);
+    window.addEventListener('load', apply);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(apply);
+    let t; window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(apply, 150); }, { passive:true });
   })();
 })();
 </script>
