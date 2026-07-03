@@ -309,11 +309,8 @@ body.ready .wrap{ opacity:1; transform:none; }
     white-space:normal; min-width:0;
     overflow-wrap:break-word; word-break:break-word; hyphens:auto;
   }
-  /* Punktführung & Preis kleben an der ERSTEN Zeile des Namens (nicht an der
-     letzten), damit die Punkte bei einem Umbruch dort enden, wo der Umbruch
-     stattfindet – z. B. "Adana mit .......... 15,50 €" / "Joghurtsoße" darunter. */
-  .m-leader{ grid-column:2; grid-row:1; align-self:flex-start; min-width:14px; }
-  .m-price{ grid-column:3; grid-row:1; justify-self:end; align-self:flex-start; }
+  .m-leader{ grid-column:2; grid-row:1; align-self:baseline; min-width:14px; }
+  .m-price{ grid-column:3; grid-row:1; justify-self:end; }
   .m-note{ grid-column:1 / -1; grid-row:2; margin:0; }   /* enge Unterzeile direkt unter dem Namen */
   .m-desc{ max-width:100%; overflow-wrap:break-word; }
 
