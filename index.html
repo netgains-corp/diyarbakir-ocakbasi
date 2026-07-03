@@ -242,6 +242,7 @@ body.ready .wrap{ opacity:1; transform:none; }
 .m-note{ font-family:var(--serif); font-style:italic; font-size:1rem; color:var(--gold-soft); margin-left:2px; }
 .m-leader{ flex:1 1 auto; border-bottom:2px dotted rgba(200,162,76,.45); transform:translateY(-5px); min-width:14px; }
 .m-price{ font-family:var(--serif); font-weight:600; font-size:1.3rem; color:var(--gold-bright); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.m-price-multi{ display:flex; flex-direction:column; align-items:flex-end; gap:2px; line-height:1.25; white-space:nowrap; }
 .m-desc{ font-family:var(--serif); font-size:1.08rem; font-weight:500; line-height:1.32; color:var(--gold-mute); margin-top:3px; max-width:80%; }
 .chili{ width:17px; height:17px; margin-left:7px; vertical-align:-2px; }
 .tag-veg{ font-family:var(--roman); font-size:.5rem; font-weight:500; letter-spacing:.1em; color:#8fbf6a; border:1px solid #8fbf6a55; padding:2px 5px; margin-left:8px; vertical-align:middle; }
@@ -308,10 +309,17 @@ body.ready .wrap{ opacity:1; transform:none; }
     white-space:normal; min-width:0;
     overflow-wrap:break-word; word-break:break-word; hyphens:auto;
   }
-  .m-leader{ grid-column:2; grid-row:1; align-self:baseline; min-width:14px; }
-  .m-price{ grid-column:3; grid-row:1; justify-self:end; }
+  /* Punktführung & Preis kleben an der ERSTEN Zeile des Namens (nicht an der
+     letzten), damit die Punkte bei einem Umbruch dort enden, wo der Umbruch
+     stattfindet – z. B. "Adana mit .......... 15,50 €" / "Joghurtsoße" darunter. */
+  .m-leader{ grid-column:2; grid-row:1; align-self:flex-start; min-width:14px; }
+  .m-price{ grid-column:3; grid-row:1; justify-self:end; align-self:flex-start; }
   .m-note{ grid-column:1 / -1; grid-row:2; margin:0; }   /* enge Unterzeile direkt unter dem Namen */
   .m-desc{ max-width:100%; overflow-wrap:break-word; }
+
+  /* Sonderfall: Zusatzinfo soll unter dem Preis stehen statt unter dem Namen
+     (z. B. "0,33 L / 1 L" bei den Cola-Sorten) */
+  .m-note.m-note--under-price{ grid-column:3; grid-row:2; justify-self:end; text-align:right; margin:0; }
 }
 
 /* =========================================================================
@@ -465,7 +473,7 @@ body.ready .wrap{ opacity:1; transform:none; }
       <div class="m-item"><div class="m-row"><span class="m-name">Döner Beyti Kebab</span><span class="m-note">1, 2, 4, 8</span><span class="m-leader"></span><span class="m-price">15,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Ali Nazik</span><span class="m-note">1, 2, 4, 6, 8</span><span class="m-leader"></span><span class="m-price">18,00 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Kuzu Pirzola</span><span class="m-note">1, 8</span><span class="m-leader"></span><span class="m-price">21,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Karışık Izgara</span><span class="m-note">1, 8</span><span class="m-leader"></span><span class="m-price">1P 20,00 €  ·  2P 38,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Karışık Izgara</span><span class="m-note">1, 8</span><span class="m-leader"></span><span class="m-price m-price-multi"><span>1P 20,00 €</span><span>2P 38,50 €</span></span></div></div>
     </div>
   </section>
 
@@ -580,7 +588,7 @@ body.ready .wrap{ opacity:1; transform:none; }
       <div class="m-item"><div class="m-row"><span class="m-name">Kaffee</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Espresso</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Cappuccino</span><span class="m-leader"></span><span class="m-price">3,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Cola / Cola Zero / Fanta / Sprite / Spezzi</span><span class="m-note">0,33 L / 1 L</span><span class="m-leader"></span><span class="m-price">2,50 € / 3,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Cola / Cola Zero / Fanta / Sprite / Spezzi</span><span class="m-note m-note--under-price">0,33 L / 1 L</span><span class="m-leader"></span><span class="m-price">2,50 € / 3,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Pfirsich Eistee</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Multivitaminsaft</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Durstlöscher</span><span class="m-note">0,5 L</span><span class="m-leader"></span><span class="m-price">2,00 €</span></div></div>
