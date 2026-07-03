@@ -291,20 +291,27 @@ body.ready .wrap{ opacity:1; transform:none; }
    MOBILE-ONLY FIXES (Smartphones < 560px) – Tablet & Desktop unverändert
    ========================================================================= */
 @media (max-width:559.98px){
-  /* 1) Gericht-Kacheln: lange Namen sauber umbrechen statt Zeile zu sprengen */
-  .m-row{ flex-wrap:wrap; row-gap:2px; }
-  .m-name{ white-space:normal; min-width:0; overflow-wrap:break-word; word-break:break-word; hyphens:auto; }
-  /* 2) Zusatzstoff-Zahlen: bleiben eine Zeile bzw. brechen als ganzer Block um,
-        werden nie mehr vertikal gestaucht */
-  .m-note{ flex:0 0 auto; white-space:nowrap; }
-  .m-price{ margin-left:auto; white-space:nowrap; }
+  /* Speisekarte am Smartphone: Name + Punktführung + Preis stehen IMMER in der
+     ersten Zeile – der Preis bricht nie mehr allein um, egal wie lang der Name
+     ist (lange Namen umbrechen sauber innerhalb ihrer Spalte). Die Zusatzstoff-
+     Zahlen & Icons sitzen als schmale Unterzeile direkt darunter.
+     Tablet/Desktop (>=560px) behalten das ursprüngliche Flex-Layout. */
+  .m-row{
+    display:grid;
+    grid-template-columns:minmax(0, max-content) 1fr auto;
+    align-items:baseline;
+    column-gap:10px;
+    row-gap:2px;
+  }
+  .m-name{
+    grid-column:1; grid-row:1;
+    white-space:normal; min-width:0;
+    overflow-wrap:break-word; word-break:break-word; hyphens:auto;
+  }
+  .m-leader{ grid-column:2; grid-row:1; align-self:baseline; min-width:14px; }
+  .m-price{ grid-column:3; grid-row:1; justify-self:end; }
+  .m-note{ grid-column:1 / -1; grid-row:2; margin:0; }   /* enge Unterzeile direkt unter dem Namen */
   .m-desc{ max-width:100%; overflow-wrap:break-word; }
-
-  /* 3) Lange Namen: reicht der Platz nicht, rutschen die Zusatzstoff-Zahlen
-        unter den Gerichtnamen; Name und Preis bleiben zusammen in der ersten
-        Zeile – kein einzeln umbrechender Preis mehr. Die Klasse setzt das
-        Skript nur bei tatsächlichem Platzmangel (kurze Gerichte bleiben einzeilig). */
-  .m-row--stack .m-note{ order:3; flex-basis:100%; margin-left:0; }
 }
 
 /* =========================================================================
@@ -545,7 +552,7 @@ body.ready .wrap{ opacity:1; transform:none; }
       <div class="m-item"><div class="m-row"><span class="m-name">Çiğ Köfte Dürüm</span><span class="m-note">2, 3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Falafel Sandwich</span><span class="m-note">2, 3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">6,00 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Falafel Teller</span><span class="m-note">2, 3, 6, 8 🍃</span><span class="m-leader"></span><span class="m-price">10,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Beilagen</span><span class="m-note">ab 5,00 €</span><span class="m-leader"></span><span class="m-price">🍃</span></div><div class="m-desc">Bulgur / Pommes / Reis</div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Beilagen</span><span class="m-note">🍃</span><span class="m-leader"></span><span class="m-price">ab 5,00 €</span></div><div class="m-desc">Bulgur / Pommes / Reis</div></div>
     </div>
   </section>
 
@@ -722,35 +729,6 @@ body.ready .wrap{ opacity:1; transform:none; }
       ents.forEach(e => { if (e.isIntersecting){ countUp(e.target); ob.unobserve(e.target); } });
     }, { threshold:.6 });
     nums.forEach(n => io2.observe(n));
-  })();
-
-  /* Lange Gericht-Namen (nur Smartphone < 560px): Zusatzstoff-Zahlen unter den
-     Namen legen, sobald Name + Zahlen + Preis nicht mehr in eine Zeile passen.
-     Kurze Gerichte bleiben unverändert einzeilig; Tablet/Desktop nie betroffen. */
-  (function(){
-    const rows = document.querySelectorAll('.m-row');
-    if (!rows.length) return;
-    const mq = window.matchMedia('(max-width:559.98px)');
-    function apply(){
-      const mobile = mq.matches;
-      rows.forEach(function(row){
-        row.classList.remove('m-row--stack');
-        if (!mobile) return;
-        const name  = row.querySelector('.m-name');
-        const note  = row.querySelector('.m-note');
-        const price = row.querySelector('.m-price');
-        if (!name || !note || !price) return;
-        /* Preis sitzt tiefer als der Name => er ist bereits umgebrochen => stapeln */
-        if (price.offsetTop - name.offsetTop > price.offsetHeight * 0.5){
-          row.classList.add('m-row--stack');
-        }
-      });
-    }
-    apply();
-    document.addEventListener('DOMContentLoaded', apply);
-    window.addEventListener('load', apply);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(apply);
-    let t; window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(apply, 150); }, { passive:true });
   })();
 })();
 </script>
