@@ -243,6 +243,9 @@ body.ready .wrap{ opacity:1; transform:none; }
 .m-leader{ flex:1 1 auto; border-bottom:2px dotted rgba(200,162,76,.45); transform:translateY(-5px); min-width:14px; }
 .m-price{ font-family:var(--serif); font-weight:600; font-size:1.3rem; color:var(--gold-bright); white-space:nowrap; font-variant-numeric:tabular-nums; }
 .m-price-multi{ display:flex; flex-direction:column; align-items:flex-end; gap:2px; line-height:1.25; white-space:nowrap; }
+.m-price-pair{ display:flex; gap:12px; }
+.m-price-pair .m-price-col{ display:flex; flex-direction:column; align-items:flex-end; line-height:1.15; }
+.m-price-pair .m-price-vol{ font-family:var(--serif); font-style:italic; font-weight:500; font-size:.68rem; color:var(--gold-soft); margin-top:1px; }
 .m-desc{ font-family:var(--serif); font-size:1.08rem; font-weight:500; line-height:1.32; color:var(--gold-mute); margin-top:3px; max-width:80%; }
 .chili{ width:17px; height:17px; margin-left:7px; vertical-align:-2px; }
 .tag-veg{ font-family:var(--roman); font-size:.5rem; font-weight:500; letter-spacing:.1em; color:#8fbf6a; border:1px solid #8fbf6a55; padding:2px 5px; margin-left:8px; vertical-align:middle; }
@@ -298,25 +301,56 @@ body.ready .wrap{ opacity:1; transform:none; }
      Zahlen & Icons sitzen als schmale Unterzeile direkt darunter.
      Tablet/Desktop (>=560px) behalten das ursprüngliche Flex-Layout. */
   .m-row{
-    display:grid;
-    grid-template-columns:minmax(0, max-content) 1fr auto;
-    align-items:baseline;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-end;
     column-gap:10px;
     row-gap:2px;
   }
   .m-name{
-    grid-column:1; grid-row:1;
-    white-space:normal; min-width:0;
+    order:1;
+    /* Basis 0 + wachsen: der Preis rutscht nie in eine neue Zeile, und der Name
+       füllt den restlichen Platz (links) und bricht darin sauber mehrzeilig um. */
+    flex:1 1 0;
+    min-width:0;
+    white-space:normal;
+    overflow:hidden;   /* schneidet die überstehende Punktführung sauber ab */
     overflow-wrap:break-word; word-break:break-word; hyphens:auto;
   }
-  .m-leader{ grid-column:2; grid-row:1; align-self:baseline; min-width:14px; }
-  .m-price{ grid-column:3; grid-row:1; justify-self:end; }
-  .m-note{ grid-column:1 / -1; grid-row:2; margin:0; }   /* enge Unterzeile direkt unter dem Namen */
+  /* Punktführung sitzt jetzt direkt am Namenstext: sie beginnt exakt hinter dem
+     letzten Wort (auch nach einem Umbruch, z. B. hinter „Teller") und läuft
+     durchgehend bis zum Preis. Breite 100 % + negative Marge = kein echter
+     Platzbedarf, sie bleibt also in der letzten Zeile und der Überhang wird
+     durch overflow:hidden am Namen abgeschnitten. */
+  .m-name::after{
+    content:"";
+    display:inline-block;
+    width:100%;
+    margin-left:8px;
+    margin-right:-100%;
+    border-bottom:2px dotted rgba(200,162,76,.45);
+    transform:translateY(-0.35em);
+  }
+  .m-leader{ display:none; }   /* durch .m-name::after ersetzt */
+  .m-price{ order:3; flex:0 0 auto; align-self:flex-end; }
+  /* Mehrzeiliger Preis (z. B. 1P/2P): Der Block zählt nur so hoch wie die ERSTE
+     Zeile („1P 20,00 €"), damit sie exakt auf Höhe von Name + Punktführung sitzt.
+     Die zweite Zeile („2P 38,50 €") wird direkt darunter absolut gesetzt und
+     vergrößert die Zeilenhöhe nicht – so bleibt der Abstand zur Zusatzstoff-Zeile
+     genauso eng wie bei allen anderen Gerichten. */
+  .m-price-multi{ position:relative; }
+  .m-price-multi > span:nth-child(2){
+    position:absolute; top:100%; right:0; margin-top:2px; white-space:nowrap;
+  }
+  .m-note{ order:4; flex:1 0 100%; margin:0; }   /* enge Unterzeile direkt unter dem Namen */
   .m-desc{ max-width:100%; overflow-wrap:break-word; }
 
-  /* Sonderfall: Zusatzinfo soll unter dem Preis stehen statt unter dem Namen
-     (z. B. "0,33 L / 1 L" bei den Cola-Sorten) */
-  .m-note.m-note--under-price{ grid-column:3; grid-row:2; justify-self:end; text-align:right; margin:0; }
+  /* Hero kompakter, damit der CTA-Button ohne Scrollen sichtbar ist (above the fold) */
+  /* Mehr Platz oben, damit die Titel-Pille nicht unter das Status-Badge (Geöffnet/
+     Geschlossen) rutscht; unten dafür etwas weniger, damit die Hero-Höhe kaum
+     wächst und der Call-to-Action sichtbar bleibt. */
+  .hero__media{ min-height:clamp(200px,44vw,260px); padding:44px clamp(14px,4vw,20px) 10px; }
+  .hero__chips{ padding:clamp(10px,3vw,14px); }
 }
 
 /* =========================================================================
@@ -585,7 +619,7 @@ body.ready .wrap{ opacity:1; transform:none; }
       <div class="m-item"><div class="m-row"><span class="m-name">Kaffee</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Espresso</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Cappuccino</span><span class="m-leader"></span><span class="m-price">3,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Cola / Cola Zero / Fanta / Sprite / Spezzi</span><span class="m-note m-note--under-price">0,33 L / 1 L</span><span class="m-leader"></span><span class="m-price">2,50 € / 3,50 €</span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Cola / Cola Zero / Fanta / Sprite / Spezi</span><span class="m-leader"></span><span class="m-price m-price-pair"><span class="m-price-col"><span>2,50 €</span><span class="m-price-vol">0,33 L</span></span><span class="m-price-col"><span>3,50 €</span><span class="m-price-vol">1 L</span></span></span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Pfirsich Eistee</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Multivitaminsaft</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Durstlöscher</span><span class="m-note">0,5 L</span><span class="m-leader"></span><span class="m-price">2,00 €</span></div></div>
