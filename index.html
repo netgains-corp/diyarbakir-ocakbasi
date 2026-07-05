@@ -37,7 +37,7 @@
 
 <!-- LCP-Hero-Bild so früh wie möglich anfordern -->
 <link rel="preconnect" href="https://images.pexels.com" />
-<link rel="preload" as="image" fetchpriority="high" href="https://images.pexels.com/photos/36829402/pexels-photo-36829402/free-photo-of-juicy-beef-shawarma-rotating-on-vertical-spit.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" />
+<link rel="preload" as="image" fetchpriority="high" href="https://images.pexels.com/photos/36829402/pexels-photo-36829402/free-photo-of-juicy-beef-shawarma-rotating-on-vertical-spit.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1080" />
 
 <!-- Schriften nicht render-blockierend laden (finales Schriftbild identisch, display=swap) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -94,7 +94,7 @@ body{
      sonst erscheint dort ein schwarzer Balken (Body-Hintergrund). */
   position:fixed; top:0; left:0; right:0; height:100vh; height:100lvh;
   z-index:0; pointer-events:none;
-  opacity:0; transition:opacity 1.6s ease;
+  opacity:1;
   background:radial-gradient(130% 90% at 50% -8%, #1b1610 0%, #0c0b09 52%, #060504 100%);
 }
 body.ready .bg{ opacity:1; }
@@ -111,10 +111,9 @@ body.ready .bg{ opacity:1; }
   padding:clamp(16px,4vw,30px) clamp(14px,4vw,20px) 84px;
   display:flex; flex-direction:column;
   gap:clamp(20px,4.4vw,30px);
-  opacity:0; transform:translateY(16px);
-  transition:opacity 1s ease .4s, transform 1s ease .4s;
+  /* Above-the-fold rendert sofort (kein JS-Gating) → schnelles FCP/LCP.
+     Die Scroll-Reveals (.reveal/.stagger) weiter unten bleiben erhalten. */
 }
-body.ready .wrap{ opacity:1; transform:none; }
 
 /* =========================================================================
    GLAS-KACHEL  – dunkel mit sanftem Gold-Leuchten
@@ -425,7 +424,7 @@ body.ready .wrap{ opacity:1; transform:none; }
 
   <!-- ============================ HERO ============================ -->
   <section class="tile hero">
-    <div class="hero__media" style="background-image:url('https://images.pexels.com/photos/36829402/pexels-photo-36829402/free-photo-of-juicy-beef-shawarma-rotating-on-vertical-spit.jpeg?auto=compress&cs=tinysrgb&w=1200')">
+    <div class="hero__media" style="background-image:url('https://images.pexels.com/photos/36829402/pexels-photo-36829402/free-photo-of-juicy-beef-shawarma-rotating-on-vertical-spit.jpeg?auto=compress&cs=tinysrgb&w=1080')">
       <span class="status"><span class="dot"></span><span class="status-text">Geöffnet</span></span>
       <div class="hero__head">
         <span class="pill">Ocakbaşı · Wiesbaden</span>
