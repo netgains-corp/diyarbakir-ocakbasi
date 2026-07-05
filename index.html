@@ -54,7 +54,11 @@ body{
    HINTERGRUND  – schwarzer Stein + Korn, faded ein
    ========================================================================= */
 .bg{
-  position:fixed; inset:0; z-index:0; pointer-events:none;
+  /* top/left/right fix + große Viewport-Höhe (lvh): deckt auch den Bereich ab,
+     der frei wird, wenn die mobile URL-Leiste beim Scrollen ausgeblendet wird –
+     sonst erscheint dort ein schwarzer Balken (Body-Hintergrund). */
+  position:fixed; top:0; left:0; right:0; height:100vh; height:100lvh;
+  z-index:0; pointer-events:none;
   opacity:0; transition:opacity 1.6s ease;
   background:radial-gradient(130% 90% at 50% -8%, #1b1610 0%, #0c0b09 52%, #060504 100%);
 }
@@ -245,7 +249,7 @@ body.ready .wrap{ opacity:1; transform:none; }
 .m-price-multi{ display:flex; flex-direction:column; align-items:flex-end; gap:2px; line-height:1.25; white-space:nowrap; }
 .m-price-pair{ display:flex; gap:12px; }
 .m-price-pair .m-price-col{ display:flex; flex-direction:column; align-items:flex-end; line-height:1.15; }
-.m-price-pair .m-price-vol{ font-family:var(--serif); font-style:italic; font-weight:500; font-size:.68rem; color:var(--gold-soft); margin-top:1px; }
+.m-price-vol{ font-family:var(--serif); font-style:italic; font-weight:500; font-size:.68rem; color:var(--gold-soft); margin-left:6px; }
 .m-desc{ font-family:var(--serif); font-size:1.08rem; font-weight:500; line-height:1.32; color:var(--gold-mute); margin-top:3px; max-width:80%; }
 .chili{ width:17px; height:17px; margin-left:7px; vertical-align:-2px; }
 .tag-veg{ font-family:var(--roman); font-size:.5rem; font-weight:500; letter-spacing:.1em; color:#8fbf6a; border:1px solid #8fbf6a55; padding:2px 5px; margin-left:8px; vertical-align:middle; }
@@ -333,23 +337,22 @@ body.ready .wrap{ opacity:1; transform:none; }
   }
   .m-leader{ display:none; }   /* durch .m-name::after ersetzt */
   .m-price{ order:3; flex:0 0 auto; align-self:flex-end; }
-  /* Mehrzeiliger Preis (z. B. 1P/2P): Der Block zählt nur so hoch wie die ERSTE
-     Zeile („1P 20,00 €"), damit sie exakt auf Höhe von Name + Punktführung sitzt.
-     Die zweite Zeile („2P 38,50 €") wird direkt darunter absolut gesetzt und
-     vergrößert die Zeilenhöhe nicht – so bleibt der Abstand zur Zusatzstoff-Zeile
-     genauso eng wie bei allen anderen Gerichten. */
+  /* Mehrzeiliger Preis MIT Zusatzstoff-Notiz (z. B. Karışık Izgara „1P/2P"):
+     Der Block zählt nur so hoch wie die ERSTE Zeile, damit sie exakt auf Höhe von
+     Name + Punktführung sitzt. Die zweite Zeile wird direkt darunter absolut
+     gesetzt (Platz liefert die Notiz-Zeile darunter) und vergrößert die Höhe
+     nicht – so bleibt der Abstand zur Zusatzstoff-Zeile eng wie bei den anderen.
+     OHNE Notiz (z. B. Getränke) bleiben beide Zeilen im Fluss: dann läuft die
+     Punktführung bis zur unteren Preiszeile und der obere Preis steht darüber. */
   .m-price-multi{ position:relative; }
-  .m-price-multi > span:nth-child(2){
+  .m-row:has(.m-note) .m-price-multi > span:nth-child(2){
     position:absolute; top:100%; right:0; margin-top:2px; white-space:nowrap;
   }
   .m-note{ order:4; flex:1 0 100%; margin:0; }   /* enge Unterzeile direkt unter dem Namen */
   .m-desc{ max-width:100%; overflow-wrap:break-word; }
 
   /* Hero kompakter, damit der CTA-Button ohne Scrollen sichtbar ist (above the fold) */
-  /* Mehr Platz oben, damit die Titel-Pille nicht unter das Status-Badge (Geöffnet/
-     Geschlossen) rutscht; unten dafür etwas weniger, damit die Hero-Höhe kaum
-     wächst und der Call-to-Action sichtbar bleibt. */
-  .hero__media{ min-height:clamp(200px,44vw,260px); padding:44px clamp(14px,4vw,20px) 10px; }
+  .hero__media{ min-height:clamp(200px,44vw,260px); padding:clamp(14px,4vw,20px); }
   .hero__chips{ padding:clamp(10px,3vw,14px); }
 }
 
@@ -402,7 +405,7 @@ body.ready .wrap{ opacity:1; transform:none; }
   </section>
 
   <!-- ======================= 3 INFO-KACHELN ======================= -->
-  <div class="info-grid stagger">
+  <div class="info-grid">
     <div class="tile info">
       <svg class="top-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
       <span class="label">Standort</span><span class="val">65183 Wiesbaden</span>
@@ -418,7 +421,8 @@ body.ready .wrap{ opacity:1; transform:none; }
   </div>
 
   <!-- ============================ CTAs ============================ -->
-  <div class="cta-row reveal reveal--up">
+  <!-- Above-the-fold: sofort sichtbar, kein Scroll-Reveal. -->
+  <div class="cta-row">
     <a class="btn btn-primary" href="tel:+4961156598008">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>
       Jetzt anrufen
@@ -619,7 +623,7 @@ body.ready .wrap{ opacity:1; transform:none; }
       <div class="m-item"><div class="m-row"><span class="m-name">Kaffee</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Espresso</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Cappuccino</span><span class="m-leader"></span><span class="m-price">3,00 €</span></div></div>
-      <div class="m-item"><div class="m-row"><span class="m-name">Cola / Cola Zero / Fanta / Sprite / Spezi</span><span class="m-leader"></span><span class="m-price m-price-pair"><span class="m-price-col"><span>2,50 €</span><span class="m-price-vol">0,33 L</span></span><span class="m-price-col"><span>3,50 €</span><span class="m-price-vol">1 L</span></span></span></div></div>
+      <div class="m-item"><div class="m-row"><span class="m-name">Cola / Cola Zero / Fanta / Sprite / Spezi</span><span class="m-leader"></span><span class="m-price m-price-multi"><span>2,50 €<span class="m-price-vol">0,33 L</span></span><span>3,50 €<span class="m-price-vol">1 L</span></span></span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Pfirsich Eistee</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Multivitaminsaft</span><span class="m-leader"></span><span class="m-price">2,50 €</span></div></div>
       <div class="m-item"><div class="m-row"><span class="m-name">Durstlöscher</span><span class="m-note">0,5 L</span><span class="m-leader"></span><span class="m-price">2,00 €</span></div></div>
