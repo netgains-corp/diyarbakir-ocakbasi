@@ -351,8 +351,10 @@ body.ready .wrap{ opacity:1; transform:none; }
   .m-note{ order:4; flex:1 0 100%; margin:0; }   /* enge Unterzeile direkt unter dem Namen */
   .m-desc{ max-width:100%; overflow-wrap:break-word; }
 
-  /* Hero kompakter, damit der CTA-Button ohne Scrollen sichtbar ist (above the fold) */
-  .hero__media{ min-height:clamp(200px,44vw,260px); padding:clamp(14px,4vw,20px); }
+  /* Hero kompakter, damit der CTA-Button ohne Scrollen sichtbar ist (above the fold).
+     Mehr Platz oben, damit die Titel-Pille nicht unter das Status-Badge (Geöffnet/
+     Geschlossen) rutscht; unten dafür etwas weniger, damit die Höhe kaum wächst. */
+  .hero__media{ min-height:clamp(200px,44vw,260px); padding:44px clamp(14px,4vw,20px) 10px; }
   .hero__chips{ padding:clamp(10px,3vw,14px); }
 }
 
