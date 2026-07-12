@@ -117,7 +117,7 @@ body.ready .bg{ opacity:1; }
   margin:0 auto;
   padding:clamp(16px,4vw,24px) clamp(14px,4vw,20px) 84px;
   display:flex; flex-direction:column;
-  gap:clamp(16px,3.4vw,22px);
+  gap:clamp(13px,3.4vw,22px);
   /* Above-the-fold rendert sofort (kein JS-Gating) → schnelles FCP/LCP.
      Die Scroll-Reveals (.reveal/.stagger) weiter unten bleiben erhalten. */
 }
@@ -431,12 +431,25 @@ body.ready .bg{ opacity:1; }
      nicht – so bleibt der Abstand zur Zusatzstoff-Zeile eng wie bei den anderen.
      OHNE Notiz (z. B. Getränke) bleiben beide Zeilen im Fluss: dann läuft die
      Punktführung bis zur unteren Preiszeile und der obere Preis steht darüber. */
-  /* Mehrfachpreis MIT Notiz (nur Karışık Izgara, 1P/2P/4P): Der Preisblock fließt
-     rechts gestapelt in der ersten Zeile; der Name sitzt links unten auf Höhe der
-     letzten Preiszeile. So keine Überlappung mit der Beschreibung darunter. */
   .m-price-multi{ position:relative; align-items:flex-end; }
   .m-note{ order:4; flex:1 0 100%; margin:0; }   /* enge Unterzeile direkt unter dem Namen */
   .m-desc{ max-width:100%; overflow-wrap:break-word; }
+
+  /* Mehrfachpreis MIT Beschreibung (nur Karışık Izgara, 1P/2P/4P): wie auf dem
+     Desktop – 1P steht auf Namenshöhe, 2P/4P laufen rechts gestapelt weiter, die
+     Beschreibung sitzt direkt unter dem Namen. Der Preisblock zählt nur so hoch wie
+     seine erste Zeile (max-height + overflow), rechts wird Platz reserviert, damit
+     die Preiszeilen Notiz und Beschreibung nicht überlappen. */
+  .m-item:has(.m-price-multi):has(.m-desc) .m-row{ align-items:baseline; }
+  .m-item:has(.m-price-multi):has(.m-desc) .m-price-multi{ max-height:1.3em; overflow:visible; }
+  .m-item:has(.m-price-multi):has(.m-desc) .m-note,
+  .m-item:has(.m-price-multi):has(.m-desc) .m-desc{ padding-right:104px; }
+
+  /* Info-Kacheln am Smartphone etwas kompakter, damit der CTA früher sichtbar wird
+     (Hero-Kachel bleibt unverändert). */
+  .info{ padding:11px 8px; gap:3px; }
+  .info .hours-mini{ margin-top:2px; }
+  .info .hours-mini li{ padding:1px 3px; line-height:1.15; }
 
   /* Hero kompakter, damit der CTA-Button ohne Scrollen sichtbar ist (above the fold).
      Mehr Platz oben, damit die Titel-Pille nicht unter das Status-Badge (Geöffnet/
